@@ -1,24 +1,106 @@
-# Compiled class file
-*.class
+Exemplo de Código (Cadastro de Transação):
 
-# Log file
-*.log
+public class Transacao {
+    private double valor;
+    private String categoria;
+    private String data;
+    private String descricao;
+    private String tipo; // "receita" ou "despesa"
 
-# BlueJ files
-*.ctxt
+    public Transacao(double valor, String categoria, String data, String descricao, String tipo) {
+        this.valor = valor;
+        this.categoria = categoria;
+        this.data = data;
+        this.descricao = descricao;
+        this.tipo = tipo;
+    }
 
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
+    // Getters e setters
+}
+Na interface gráfica, você pode criar um formulário onde o usuário insere esses dados e, ao clicar em um botão, a transação é registrada.
 
-# Package Files #
-*.jar
-*.war
-*.nar
-*.ear
-*.zip
-*.tar.gz
-*.rar
+Exemplo de Código (Filtro de Transações):
 
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
-replay_pid*
+public class ControladorTransacao {
+    private ArrayList<Transacao> transacoes;
+
+    public ControladorTransacao() {
+        transacoes = new ArrayList<>();
+    }
+
+    // Método para buscar transações por categoria, data ou tipo
+    public ArrayList<Transacao> buscarTransacoes(String categoria, String tipo) {
+        ArrayList<Transacao> resultado = new ArrayList<>();
+        for (Transacao t : transacoes) {
+            if ((categoria == null || t.getCategoria().equals(categoria)) && 
+                (tipo == null || t.getTipo().equals(tipo))) {
+                resultado.add(t);
+            }
+        }
+        return resultado;
+    }
+}
+
+Exemplo de Código (Resumo Financeiro):
+
+public class ControladorResumoFinanceiro {
+    private ArrayList<Transacao> transacoes;
+
+    public ControladorResumoFinanceiro() {
+        transacoes = new ArrayList<>();
+    }
+
+    public double calcularSaldo() {
+        double receita = 0;
+        double despesa = 0;
+        
+        for (Transacao t : transacoes) {
+            if (t.getTipo().equals("receita")) {
+                receita += t.getValor();
+            } else if (t.getTipo().equals("despesa")) {
+                despesa += t.getValor();
+            }
+        }
+        return receita - despesa; // Retorna o saldo
+    }
+
+    public double calcularSomaPorTipo(String tipo) {
+        double soma = 0;
+        for (Transacao t : transacoes) {
+            if (t.getTipo().equals(tipo)) {
+                soma += t.getValor();
+            }
+        }
+        return soma;
+    }
+}
+
+Exemplo de Código (Gerenciamento de Categorias):
+
+public class Categoria {
+    private String nome;
+
+    public Categoria(String nome) {
+        this.nome = nome;
+    }
+
+    // Getters e setters
+}
+
+Exemplo de Código (Autenticação de Usuário):
+
+public class Usuario {
+    private String email;
+    private String senha;
+
+    public Usuario(String email, String senha) {
+        this.email = email;
+        this.senha = senha;
+    }
+
+    public boolean autenticar(String senhaTentativa) {
+        return this.senha.equals(senhaTentativa);
+    }
+}
+
+
